@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 declare var Paho: any;
 
 @Component({
@@ -10,7 +11,7 @@ export class HomePage implements OnInit {
   client: any;
 
 
-  constructor() {}
+  constructor(private router: Router) {}
 
 
   ngOnInit() {
@@ -40,6 +41,13 @@ export class HomePage implements OnInit {
 
   }
 
+  chat() {
+    this.router.navigate(['chat']);
+  }
+
+  compose() {
+    this.router.navigate(['compose']);
+  }
 
   // called when the client connects
   private onConnect = () => { 
