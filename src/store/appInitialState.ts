@@ -8,6 +8,11 @@ export const AppInitialState: AppState = {
         error: null,
         loggedIn: false,
         loggingIn: false,
+        loggedOut: true,
         user: null,
+    },
+    register: {
+        registering: false,
+        registered: false,
     },
 }

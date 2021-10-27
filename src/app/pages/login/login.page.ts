@@ -4,10 +4,9 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { AppState } from 'src/store/appState';
 import { hide, show } from 'src/store/loading/loading.actions';
-import { login, loginFailed, loginSuccess } from 'src/store/login/login.actions';
+import { login } from 'src/store/login/login.actions';
 import { LoginState } from 'src/store/login/loginState';
 import { LoginPageForm } from './login.page.form';
 
@@ -22,12 +21,11 @@ export class LoginPage implements OnInit, OnDestroy {
   loginStateSubscription: Subscription;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private store: Store<AppState>,
-    private authService: AuthService, private toastController: ToastController) { }
+    private toastController: ToastController) { }
 
   ngOnInit() {
     this.form = new LoginPageForm(this.formBuilder).createForm();
     this.loginStateSubscription = this.store.select('login').subscribe(loginState => {
-      this.onLoggingIn(loginState);
       this.onLoggedIn(loginState);
       this.onError(loginState);
       this.toggleLoading(loginState);
@@ -46,18 +44,6 @@ export class LoginPage implements OnInit, OnDestroy {
       this.store.dispatch(show());
     } else {
       this.store.dispatch(hide());
-    }
-  }
-
-  private onLoggingIn(loginState: LoginState) {
-    if (loginState.loggingIn) {
-      const email = this.form.get("email").value;
-      const password = this.form.get("password").value;
-      this.authService.login(email, password).subscribe(user => {
-        this.store.dispatch(loginSuccess({ user }));
-      }, error => {
-        this.store.dispatch(loginFailed({error}))
-      });
     }
   }
 

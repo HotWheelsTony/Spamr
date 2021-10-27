@@ -13,6 +13,12 @@ export const environment = {
     appId: "1:385089516281:web:e94673110f8322a437a828"
   },
 
+  mqttConfig: {
+    host: 'broker.mqttdashboard.com',
+    port: Number(8000),
+    id: 'SpamrApp',
+  },
+
   production: false
 };
 

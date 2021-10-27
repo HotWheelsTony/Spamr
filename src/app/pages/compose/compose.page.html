@@ -3,10 +3,23 @@
     <ion-title>New message</ion-title>
     <ion-buttons slot="start">
       <ion-back-button text="" color="primary"></ion-back-button>
-  </ion-buttons>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-label position="floating">Recipient</ion-label>
+      <ion-input formControlName="recipient"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" type="text">Message content</ion-label>
+      <ion-textarea formControlName="content"></ion-textarea>
+    </ion-item>
+    <ion-button [disabled]="!form.valid" (click)="submit()">
+      Send
+      <ion-icon name="send"></ion-icon>
+    </ion-button>
+  </form>
 </ion-content>

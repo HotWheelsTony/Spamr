@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { environment } from 'src/environments/environment';
+import { AppState } from 'src/store/appState';
 declare var Paho: any;
 
 @Component({
@@ -11,18 +14,17 @@ export class HomePage implements OnInit {
   client: any;
 
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private store: Store<AppState>) {}
 
 
   ngOnInit() {
-    var host = 'broker.mqttdashboard.com'; 
-    var port = Number(8000);
-    var id = 'app';  
+      
+    this.store.select
 
     this.client = new Paho.Client(
-      host, 
-      port, 
-      id
+      environment.mqttConfig.host,
+      environment.mqttConfig.port,
+      environment.mqttConfig.id,
     );
     console.log("Created client: " + this.client);
 
@@ -34,7 +36,6 @@ export class HomePage implements OnInit {
     this.client.connect({ 
       timeout: 10,
       useSSL: false,  
-      mqttVersion: 3,
       onSuccess: this.onConnect,
       onFailure: this.onFailure,
     });
@@ -66,7 +67,6 @@ export class HomePage implements OnInit {
       console.log("onConnectionLost:" + responseObject.errorMessage);
     }
   } 
-
 
   // called when a message arrives
   private onMessageArrived = (message) => {

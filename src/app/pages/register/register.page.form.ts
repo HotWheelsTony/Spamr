@@ -19,18 +19,15 @@ export class RegisterPageForm {
         form.get('confirmPassword').setValidators(checkPasswordMatch(form));
         
         return form;
-    }
+    } 
 
 }
 
 function checkPasswordMatch(form: FormGroup): ValidatorFn {
     const password = form.get('password');
     const confirmPassword = form.get('confirmPassword');
-
     const validator = () => {
         return password.value === confirmPassword.value ? null : {isntMatching: true}
     };
-
-    return validator;
-    
+    return validator;  
 }

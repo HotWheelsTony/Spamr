@@ -1,17 +1,17 @@
 import { createReducer, on } from "@ngrx/store";
 import { AppInitialState } from "../appInitialState";
-import { login, loginFailed, loginSuccess } from "./login.actions";
+import { login, loginFailed, loginSuccess, logout } from "./login.actions";
 import { LoginState } from "./loginState";
 
-const initialState: LoginState = AppInitialState.login;
 
-const reducer = createReducer(initialState, 
+const reducer = createReducer(AppInitialState.login, 
     on(login, currentState => {
         return {
             ...currentState,
             error: null, 
             loggedIn: false,
             loggingIn: true,
+            loggedOut: true,
         }
     }),
     on(loginSuccess, currentState => {
@@ -19,15 +19,24 @@ const reducer = createReducer(initialState,
             ...currentState,
             loggedIn: true,
             loggingIn: false,
+            loggedOut: false,
         }
     }),
     on(loginFailed, (currentState, action) => {
-        console.log("Login failed reducer");
         return {
             ...currentState,
             error: action.error,
             loggedIn: false,
             loggingIn: false,
+            loggedOut: true,
+        }
+    }),
+    on(logout, currentState => {
+        return {
+            ...currentState,
+            loggedIn: false,
+            loggingIn: false,
+            loggedOut: true,
         }
     }),
 

@@ -34,6 +34,35 @@
     background: white;
 }
 
+.flex-bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100%;
+    background: white;
+}
+
 ion-content{
+    --ion-background-color:white;
+}
+
+ion-toolbar {
+    --background:white;
+    ion-title {
+        color:black;
+    }
+}
+
+ion-card {
+    --background:white;
+}
+
+ion-item {
+    color:black;
+    --background:white;
+}
+
+ion-splitpane {
     --ion-background-color:white;
 }

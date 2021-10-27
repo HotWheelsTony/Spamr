@@ -1,0 +1,14 @@
+.account-flex {
+    display: flex;
+    
+    justify-content: center;
+}
+ion-button {
+    position: "bottom";
+    margin-top: 10px;
+    height: 50px;
+    width: 95%;
+    ion-icon {
+        margin-left: 20px;
+    }
+}
