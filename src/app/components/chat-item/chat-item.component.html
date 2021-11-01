@@ -1,9 +1,10 @@
+
+
 <ion-item button>
-  <ion-avatar slot="start">
-    <img src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg">
-  </ion-avatar>
-  <ion-label>
-    <h1>{{ name }}</h1>
-    <p>{{ lastMessageTime }} {{ lastMessage }} </p>
-  </ion-label>
+  <div class="item-content">
+    <ion-label>
+      <ion-icon slot="start" name="person" color="primary"></ion-icon>
+      {{ name }}
+    </ion-label>
+  </div>
 </ion-item>

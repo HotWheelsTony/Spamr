@@ -5,6 +5,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
 import { UserRegister } from 'src/app/model/user/userRegister';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { FirebaseService } from '../firebase.service';
 
 
 @Injectable({
@@ -12,7 +13,10 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class AuthService {
 
-  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore) { }
+  constructor(private auth: AngularFireAuth, 
+    private firestore: AngularFirestore, 
+    private firebaseService: FirebaseService) 
+  {}
 
   login(email: string, password: string): Observable<User> {
     return new Observable<User>(observer => {
@@ -37,18 +41,31 @@ export class AuthService {
             username: userRegister.username,
             email: userRegister.email,
           }
-          this.firestore.collection('/users/').add(userData)
+          this.firestore.collection('users')
+            .doc(firebase.default.auth().currentUser.uid)
+            .set(userData)
             .then(() => {
               firebase.default.auth().currentUser.updateProfile({
                 displayName: userRegister.username,
+              }).then(() => {
+                //in here i want to create the chats collection for this user,
+                // which needs to have each chats unique id, the recipient also needs to be subscribed to 
+                // each chat trhey are a member of 
+                // when a chat is created both parties must be subscribed to the unique id
+                // i cant do this for both parties when the chat is created 
+
+                // CHATROOMS ARE THE SOLUTION
+                // ENTER CHATROOM ID TO JOIN 
+                  this.firebaseService.addChatroom('echo');
+                  observer.next();        
               });
-              observer.next();
+              
             }).catch(error => {
               observer.error(error);
               observer.complete();
             });
         });
-    });
+    });   
   }
 
   logout(): Observable<void> {
@@ -61,6 +78,6 @@ export class AuthService {
           observer.complete();
         });
     });
-
   }
+
 }

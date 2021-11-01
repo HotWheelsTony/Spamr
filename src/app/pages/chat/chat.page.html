@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Chat</ion-title>
+    <ion-title>Chatting in room: {{ topic }}</ion-title>
     <ion-buttons slot="start">
         <ion-back-button text="" color="primary"></ion-back-button>
     </ion-buttons>
@@ -8,5 +8,22 @@
 </ion-header>
 
 <ion-content>
-
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-label position="floating" type="text">Message content</ion-label>
+      <ion-textarea formControlName="content"></ion-textarea>
+    </ion-item>
+    <ion-button [disabled]="!form.valid" (click)="submit()">
+      Send
+      <ion-icon name="send"></ion-icon>
+    </ion-button>
+  </form>
+  <ion-list>
+    <ion-item *ngFor="let message of messages">
+      <ion-label>
+        <h2>{{message.name}}</h2>
+        <p>{{message.payloadString}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

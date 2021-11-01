@@ -1,6 +1,6 @@
-import { FormBuilder, FormGroup, ValidatorFn, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-export class ComposePageForm {
+export class ChatPageForm {
 
     private formBuilder: FormBuilder;
 
@@ -11,9 +11,8 @@ export class ComposePageForm {
 
     createForm() : FormGroup {
         let form =  this.formBuilder.group({
-            room: ['', [Validators.required]],
+            content: ['', [Validators.required]]
         });
-        
         return form;
     }
 

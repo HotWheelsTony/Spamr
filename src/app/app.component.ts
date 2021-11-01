@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { Store } from '@ngrx/store';
 import * as firebase from 'firebase';
 import { Subscription } from 'rxjs';
@@ -24,7 +23,7 @@ export class AppComponent implements OnInit {
   loginStateSubscription: Subscription;
 
 
-  constructor(private auth: AngularFireAuth, private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     
@@ -35,10 +34,8 @@ export class AppComponent implements OnInit {
 
   onLoggedIn(loginState: LoginState) {
     if (loginState.loggedIn) {
-      console.log("in drawer login state changed");
       this.username = firebase.default.auth().currentUser.displayName; 
       this.email = firebase.default.auth().currentUser.email;
-      console.log(this.username);
     }
   }
 

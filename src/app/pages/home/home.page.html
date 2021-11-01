@@ -8,16 +8,12 @@
 </ion-header>
 
 <ion-content>
-   
-  <ion-list>
-    <chat-item name="Jane Doe" lastMessage="Hey there!" lastMessageTime="06:37" (click)="chat()"></chat-item>
+  <ion-list *ngFor="let r of rooms; let i = index">
+    <chat-item name={{r.topic}} (click)="chat(r.topic)"></chat-item>
   </ion-list>
-
-
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="compose()">
-      <ion-icon name="create"></ion-icon>
-    </ion-fab-button> 
-  </ion-fab> 
+      <ion-icon name="person-add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
-

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { ComposePageForm } from './compose.page.form';
 
 @Component({
@@ -12,15 +13,18 @@ export class ComposePage implements OnInit {
 
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, 
+    private router: Router, 
+    private firebaseService: FirebaseService) { }
 
   ngOnInit() {
     this.form = new ComposePageForm(this.formBuilder).createForm();
   }
 
   submit() {
-    console.log("Submitted message");
-    this.router.navigate(['home']);
+    const roomname = this.form.get('room').value;
+    this.firebaseService.addChatroom(roomname);
+    this.router.navigate(['chat', { roomname: roomname }]);
   }
 
 }

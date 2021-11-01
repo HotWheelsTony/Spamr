@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { AppState } from 'src/store/appState';
 import { hide, show } from 'src/store/loading/loading.actions';
 import { login } from 'src/store/login/login.actions';
@@ -20,7 +21,7 @@ export class RegisterPage implements OnInit, OnDestroy {
   registerStateSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
-     private store: Store<AppState>) { }
+     private store: Store<AppState>, private firebaseService: FirebaseService) { }
 
   ngOnInit() { 
     this.form = new RegisterPageForm(this.formBuilder).createForm();

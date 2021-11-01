@@ -8,8 +8,6 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ChatItemComponent implements OnInit {
 
   @Input() name: string;
-  @Input() lastMessage: string;
-  @Input() lastMessageTime: string;
 
   constructor() { }
 
